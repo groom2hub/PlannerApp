@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F8FD">
+
+    <LinearLayout
+        android:id="@+id/Ly_plan_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:layout_margin="16dp"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/TvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_tv_todo_more"
+            android:text="오늘" />
+
+        <LinearLayout
+            android:id="@+id/Ly_plan_item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_head_background" />
+
+            <TextView
+                android:id="@+id/TvTodo"
+                android:layout_width="292dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_background"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:text="해야할 일" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Ly_plan_item2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_must_head_background" />
+
+            <TextView
+                android:id="@+id/TvTodo1"
+                android:layout_width="292dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_must_background"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:text="중요한 약속" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/Ly_plan_items1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="Ly_plan_items"
+        app:layout_constraintTop_toBottomOf="@+id/Ly_plan_items"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/TvDate1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_tv_todo_more"
+            android:text="오늘" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_head_background" />
+
+            <TextView
+                android:id="@+id/TvTodo2"
+                android:layout_width="292dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_background"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:text="해야할 일" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_must_head_background" />
+
+            <TextView
+                android:id="@+id/TvTodo22"
+                android:layout_width="292dp"
+                android:layout_height="24dp"
+                android:background="@drawable/tv_todo_must_background"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:text="중요한 약속" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rectangle_4"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentTop="true"
+        app:layout_constraintBottom_toBottomOf="parent" >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_menu_bar_background"
+            android:drawableTop="@drawable/ic_menu_bar_home"
+            android:text="Home"
+            android:layout_weight="1" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_menu_bar_background"
+            android:drawableTop="@drawable/ic_menu_bar_calendar"
+            android:text="Plan"
+            android:layout_weight="1" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_menu_bar_background"
+            android:drawableTop="@drawable/ic_menu_bar_map"
+            android:text="Map"
+            android:layout_weight="1" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/view_menu_bar_background"
+            android:drawableTop="@drawable/ic_menu_bar_profile"
+            android:text="Profile"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
