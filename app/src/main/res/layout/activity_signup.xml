@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="bottom"
+    android:gravity="center"
     android:background="#D7F1FA">
 
     <LinearLayout
@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wellcome"
+            android:text="@string/sign_up"
             android:textColor="#969696"
             android:textSize="17sp"/>
 
@@ -23,59 +23,25 @@
             android:id="@+id/login_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/account_login"
+            android:text="@string/account_make"
             android:textStyle="bold"
             android:textSize="30sp"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/google_login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/google"
-        android:text="@string/login_google"
-        android:textSize="18dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="2dp"/>
-    <Button
-        android:id="@+id/kakao_login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/kakao_icon"
-        android:text="@string/login_kakao"
-        android:textSize="18dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"/>
-    <Button
-        android:id="@+id/naver_login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/naver_icon"
-        android:text="@string/login_naver"
-        android:textSize="18dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="15dp"/>
 
+    <EditText
+        android:id="@+id/edt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/human_icon"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="50dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="25dp"
+        android:hint="@string/name"
+        android:background="@drawable/add_line" />
     <EditText
         android:id="@+id/edt_email"
         android:layout_width="match_parent"
@@ -84,7 +50,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:paddingLeft="10dp"
@@ -106,7 +72,6 @@
         android:paddingRight="25dp"
         android:hint="@string/pass"
         android:background="@drawable/add_line" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/login"
         android:layout_width="match_parent"
@@ -125,24 +90,4 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_question"/>
-        <TextView
-            android:id="@+id/sign_up_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:textStyle="bold"
-            android:textColor="#0000FF"/>
-    </LinearLayout>
 </LinearLayout>
