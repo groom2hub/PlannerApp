@@ -9,17 +9,17 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class SignupActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_sign_up)
 
         auth = Firebase.auth
 
-        var signupButton = findViewById<AppCompatButton>(R.id.signupButton)
+        var signupButton = findViewById<AppCompatButton>(R.id.signUpButton)
 
         signupButton.setOnClickListener {
             signUp()

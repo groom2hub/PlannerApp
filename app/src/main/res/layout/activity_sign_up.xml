@@ -20,12 +20,11 @@
             android:textSize="17sp"/>
 
         <TextView
-            android:id="@+id/login_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_make"
-            android:textStyle="bold"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <EditText
@@ -93,7 +92,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/signupButton"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/keep_going"
