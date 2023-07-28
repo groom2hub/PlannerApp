@@ -16,6 +16,7 @@
         android:orientation="vertical"
         android:layout_margin="16dp"
         android:padding="16dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +41,7 @@
 
             <TextView
                 android:id="@+id/TvTodo"
-                android:layout_width="292dp"
+                android:layout_width="320dp"
                 android:layout_height="24dp"
                 android:background="@drawable/tv_todo_background"
                 android:gravity="center_vertical"
@@ -60,7 +61,7 @@
 
             <TextView
                 android:id="@+id/TvTodo1"
-                android:layout_width="292dp"
+                android:layout_width="320dp"
                 android:layout_height="24dp"
                 android:background="@drawable/tv_todo_must_background"
                 android:gravity="center_vertical"
@@ -78,13 +79,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_margin="16dp"
-        android:layout_marginEnd="20dp"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="Ly_plan_items"
-        app:layout_constraintTop_toBottomOf="@+id/Ly_plan_items"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ly_plan_items">
 
         <TextView
             android:id="@+id/TvDate1"
@@ -104,7 +104,7 @@
 
             <TextView
                 android:id="@+id/TvTodo2"
-                android:layout_width="292dp"
+                android:layout_width="320dp"
                 android:layout_height="24dp"
                 android:background="@drawable/tv_todo_background"
                 android:gravity="center_vertical"
@@ -123,7 +123,7 @@
 
             <TextView
                 android:id="@+id/TvTodo22"
-                android:layout_width="292dp"
+                android:layout_width="320dp"
                 android:layout_height="24dp"
                 android:background="@drawable/tv_todo_must_background"
                 android:gravity="center_vertical"
