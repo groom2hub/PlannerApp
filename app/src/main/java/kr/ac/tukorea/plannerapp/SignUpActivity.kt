@@ -2,56 +2,62 @@ package kr.ac.tukorea.plannerapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kr.ac.tukorea.plannerapp.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-
+    private lateinit var binding: ActivitySignUpBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = Firebase.auth
 
-        var signupButton = findViewById<AppCompatButton>(R.id.signUpButton)
-
-        signupButton.setOnClickListener {
+        binding.signUpButton.setOnClickListener {
             signUp()
         }
 
     }
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            onRestart()
-        }
-    }
-
     private fun signUp() {
-        var email = findViewById<EditText>(R.id.emailEdit).text.toString()
-        var password = findViewById<EditText>(R.id.passwordEdit).text.toString()
-        var passwordCheck = findViewById<EditText>(R.id.passwordCheckEdit).text.toString()
+        var email = binding.emailEdit.text.toString()
+        var password = binding.passwordEdit.text.toString()
+        var passwordCheck = binding.passwordCheckEdit.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
             if (password == passwordCheck) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            val user = auth.currentUser
+                            //val user = auth.currentUser
                             sendToast("회원가입에 성공했습니다.")
+                            //Log.d("test", "${auth.currentUser}")
+                            Firebase.auth.signOut()
                             finish()
                         } else {
                             if (task.exception != null) {
-                                sendToast(task.exception.toString())
+                                //Log.d("test", "${task.exception.toString()}")
+                                if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthUserCollisionException: The email address is already in use by another account.") {
+                                    sendToast("이미 가입된 이메일입니다.")
+                                }
+                                else if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthWeakPasswordException: The given password is invalid. [ Password should be at least 6 characters ]") {
+                                    sendToast("비밀번호를 6자 이상 입력하세요.")
+                                }
+                                else if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthWeakPasswordException: The email address is badly formatted.") {
+                                    sendToast("잘못된 형식의 이메일입니다.")
+                                }
+                                else {
+                                    sendToast(task.exception.toString())
+                                }
                             }
                         }
                     }
