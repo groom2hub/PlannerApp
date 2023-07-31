@@ -9,6 +9,7 @@ import kr.ac.tukorea.plannerapp.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private val backKeyHandler: BackKeyHandler = BackKeyHandler(this) //BackKeyHandler 클래스 인스턴스 생성
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -24,5 +25,8 @@ class HomeActivity : AppCompatActivity() {
             var loginIntent = Intent(this, MainActivity::class.java)
             startActivity(loginIntent)
         }
+    }
+    override fun onBackPressed() { //뒤로 가기 버튼을 두 번 눌러야 앱이 종료
+        backKeyHandler.onBackPressed()
     }
 }
