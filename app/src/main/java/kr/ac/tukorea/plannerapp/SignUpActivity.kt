@@ -3,7 +3,7 @@ package kr.ac.tukorea.plannerapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class SignupActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
