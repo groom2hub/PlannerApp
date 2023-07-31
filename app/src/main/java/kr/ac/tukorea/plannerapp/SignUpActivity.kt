@@ -25,7 +25,6 @@ class SignUpActivity : AppCompatActivity() {
         binding.signUpButton.setOnClickListener {
             signUp()
         }
-
     }
 
     private fun signUp() {
