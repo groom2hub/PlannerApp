@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
+    private val backKeyHandler: BackKeyHandler = BackKeyHandler(this) //BackKeyHandler 클래스 인스턴스 생성
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             signIn()
         }
     }
-
     public override fun onBackPressed() {
         super.onBackPressed()
         moveTaskToBack(true)
@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
             sendToast("이메일 또는 비밀번호를 입력하세요.")
         }
     }
-
     private fun sendToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
 }
