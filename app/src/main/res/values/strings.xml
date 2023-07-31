@@ -13,4 +13,7 @@
     <string name="keep_going">계속</string>
     <string name="account_question">계정이 없으신가요? </string>
     <string name="sign_up"> 회원가입</string>
+    <string name="forget_pass"> 비밀번호를 잊으셨나요?</string>
+    <string name="pass_reset"> 비밀번호 변경</string>
+    <string name="account_info"> 계정 정보</string>
 </resources>

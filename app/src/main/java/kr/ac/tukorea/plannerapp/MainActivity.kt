@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityMainBinding
     private val backKeyHandler: BackKeyHandler = BackKeyHandler(this) //BackKeyHandler 클래스 인스턴스 생성
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding.signUpText.setOnClickListener {
             var signUpIntent = Intent(this, SignUpActivity::class.java)
             startActivity(signUpIntent)
+        }
+
+        binding.passResetText.setOnClickListener {
+            var passResetIntent = Intent(this, PasswordResetActivity::class.java)
+            startActivity(passResetIntent)
         }
 
         auth = Firebase.auth
