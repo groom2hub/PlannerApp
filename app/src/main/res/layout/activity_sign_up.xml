@@ -20,16 +20,15 @@
             android:textSize="17sp"/>
 
         <TextView
-            android:id="@+id/login_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_make"
-            android:textStyle="bold"
-            android:textSize="30sp"/>
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <EditText
-        android:id="@+id/edt_username"
+        android:id="@+id/nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/human_icon"
@@ -43,7 +42,7 @@
         android:hint="@string/name"
         android:background="@drawable/add_line" />
     <EditText
-        android:id="@+id/edt_email"
+        android:id="@+id/emailEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/mail_icon"
@@ -56,9 +55,10 @@
         android:paddingLeft="10dp"
         android:paddingRight="25dp"
         android:hint="@string/email"
-        android:background="@drawable/add_line" />
+        android:background="@drawable/add_line"
+        android:inputType="textEmailAddress" />
     <EditText
-        android:id="@+id/edt_pass"
+        android:id="@+id/passwordEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/black_eye"
@@ -71,9 +71,28 @@
         android:paddingLeft="10dp"
         android:paddingRight="25dp"
         android:hint="@string/pass"
-        android:background="@drawable/add_line" />
+        android:background="@drawable/add_line"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/passwordCheckEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/black_eye"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="25dp"
+        android:hint="@string/pass_check"
+        android:background="@drawable/add_line"
+        android:inputType="textPassword" />
+
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login"
+        android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/keep_going"
