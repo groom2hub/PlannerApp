@@ -1,16 +1,18 @@
 package kr.ac.tukorea.plannerapp
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import kr.ac.tukorea.plannerapp.databinding.ActivityHomeBinding
-import android.content.Intent
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import androidx.recyclerview.widget.LinearLayoutManager
+import kr.ac.tukorea.plannerapp.databinding.ActivityHomeBinding
+
+class HomeActivity : AppCompatActivity() {
 
 @RequiresApi(Build.VERSION_CODES.O)
 open class HomeActivity : AppCompatActivity() {
@@ -25,14 +27,39 @@ open class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (Firebase.auth.currentUser == null) {
+            var loginIntent = Intent(this, MainActivity::class.java)
+            startActivity(loginIntent)
+        }
+
+        binding.logoutButton.setOnClickListener {
+            Firebase.auth.signOut()
+            var loginIntent = Intent(this, MainActivity::class.java)
+            startActivity(loginIntent)
+        }
         planViewModel = ViewModelProvider(this, ViewModelFactory())[PlanViewModel::class.java]
         planViewModel.findAllPlans()
 
         planViewModel.plans.observe(this) { plans ->
             planlistadapter = PlanListAdapter(plans, this)
-            binding.rvPlan.adapter = planlistadapter
+            binding..adapter = planlistadapter
         }
 
+        db.collection("users")
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (i in task.result) {
+                        if (i.id == Firebase.auth.currentUser!!.uid) {
+                            val userName = i.data["name"]
+                            binding.userNameText.text = userName.toString()
+                        }
+                    }
+                }
+            }
+    }
+    override fun onBackPressed() { //뒤로 가기 버튼을 두 번 눌러야 앱이 종료
+        backKeyHandler.onBackPressed()
         val planLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvPlan.setHasFixedSize(true)
         binding.rvPlan.layoutManager = planLayoutManager

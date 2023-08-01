@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "986045593357",
+    "project_id": "plannerapp-8cfc5",
+    "storage_bucket": "plannerapp-8cfc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986045593357:android:7e32bad11dd1ba78732244",
+        "android_client_info": {
+          "package_name": "kr.ac.tukorea.plannerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "986045593357-37rsanbblp8fnacccja0njvqk807vmg5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMWWwP124xIgUbUM3Dw9IH2tKLeLmRja4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "986045593357-37rsanbblp8fnacccja0njvqk807vmg5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
