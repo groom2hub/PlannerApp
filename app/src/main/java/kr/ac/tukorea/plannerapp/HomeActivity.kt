@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -43,6 +44,9 @@ open class HomeActivity : AppCompatActivity() {
             binding.rvPlanList.adapter = planlistadapter
         }
 
+        val planLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvPlanList.setHasFixedSize(true)
+        binding.rvPlanList.layoutManager = planLayoutManager
 
         if (Firebase.auth.currentUser == null) {
             var loginIntent = Intent(this, MainActivity::class.java)
