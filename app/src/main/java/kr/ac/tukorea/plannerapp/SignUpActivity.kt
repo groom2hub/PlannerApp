@@ -2,9 +2,11 @@ package kr.ac.tukorea.plannerapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.plannerapp.databinding.ActivitySignUpBinding
 
@@ -12,6 +14,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivitySignUpBinding
+    private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,17 +29,24 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp() {
+        var name = binding.nameEdit.text.toString()
         var email = binding.emailEdit.text.toString()
         var password = binding.passwordEdit.text.toString()
         var passwordCheck = binding.passwordCheckEdit.text.toString()
 
-        if (email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
+        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty()) {
             if (password == passwordCheck) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            //val user = auth.currentUser
+                            val user = auth.currentUser
                             sendToast("회원가입에 성공했습니다.")
+                            val memberInfo = MemberInfo(name)
+                            if (user != null) {
+                                db.collection("users").document(user.uid).set(memberInfo)
+                                    .addOnSuccessListener { Log.d("test", "DocumentSnapshot successfully written!") }
+                                    .addOnFailureListener { Log.d("test", "Error writing document") }
+                            }
                             //Log.d("test", "${auth.currentUser}")
                             Firebase.auth.signOut()
                             finish()
@@ -69,4 +79,8 @@ class SignUpActivity : AppCompatActivity() {
     private fun sendToast(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
+
+    data class MemberInfo(
+        val name: String? = null,
+    )
 }
