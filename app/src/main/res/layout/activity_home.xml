@@ -7,6 +7,15 @@
     android:layout_height="match_parent"
     android:background="#F4F8FD">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlanList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
@@ -42,108 +51,15 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/Ly_plan_items"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:text="로그아웃 임시 버튼"
+        app:layout_constraintBottom_toTopOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="반갑습니다, "
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/userNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#E46E6E"
-            android:textColorLink="#FF03DAC5"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="사용자" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 님!"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/Ly_plan_items"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/TvDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_tv_todo_more"
-            android:text="오늘" />
-
-        <LinearLayout
-            android:id="@+id/Ly_plan_item1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="해야할 일" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Ly_plan_item2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo1"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="중요한 약속" />
-        </LinearLayout>
-
-    </LinearLayout>
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/rectangle_4"
@@ -185,17 +101,5 @@
             android:textSize="12dp"
             android:layout_weight="1" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="로그아웃 임시 버튼"
-        app:layout_constraintBottom_toTopOf="@+id/rectangle_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Ly_plan_items1"
-        app:layout_constraintVertical_bias="0.501" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
