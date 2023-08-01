@@ -7,165 +7,51 @@
     android:layout_height="match_parent"
     android:background="#F4F8FD">
 
-    <LinearLayout
-        android:id="@+id/Ly_plan_items"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical"
         android:layout_margin="16dp"
-        android:padding="16dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <TextView
-            android:id="@+id/TvDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_tv_todo_more"
-            android:text="오늘" />
-
-        <LinearLayout
-            android:id="@+id/Ly_plan_item1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="해야할 일" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/Ly_plan_item2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo1"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="중요한 약속" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/Ly_plan_items1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Ly_plan_items">
-
-        <TextView
-            android:id="@+id/TvDate1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_tv_todo_more"
-            android:text="오늘" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo2"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="해야할 일" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="8dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_head_background" />
-
-            <TextView
-                android:id="@+id/TvTodo22"
-                android:layout_width="320dp"
-                android:layout_height="24dp"
-                android:background="@drawable/tv_todo_must_background"
-                android:gravity="center_vertical"
-                android:paddingStart="4dp"
-                android:text="중요한 약속" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rectangle_4"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
         android:layout_alignParentTop="true"
         app:layout_constraintBottom_toBottomOf="parent" >
         <Button
+            android:id="@+id/btnHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_home"
-            android:text="Home"
+            android:text="@string/menu_bar_home"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_calendar"
-            android:text="Plan"
+            android:text="@string/menu_bar_plan"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_map"
-            android:text="Map"
+            android:text="@string/menu_bar_map"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_profile"
-            android:text="Profile"
+            android:text="@string/menu_bar_profile"
+            android:textSize="12dp"
             android:layout_weight="1" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
