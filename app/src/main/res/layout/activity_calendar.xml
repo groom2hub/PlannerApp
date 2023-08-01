@@ -32,39 +32,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Edt" />
     <LinearLayout
-        android:id="@+id/rectangle_4"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         app:layout_constraintBottom_toBottomOf="parent" >
         <Button
             android:id="@+id/btnHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_home"
-            android:text="Home"
+            android:text="@string/menu_bar_home"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_calendar"
-            android:text="Plan"
+            android:text="@string/menu_bar_plan"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_map"
-            android:text="Map"
+            android:text="@string/menu_bar_map"
+            android:textSize="12dp"
             android:layout_weight="1" />
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_menu_bar_background"
+            android:layout_height="wrap_content"
+            android:background="#F4F8FD"
             android:drawableTop="@drawable/ic_menu_bar_profile"
-            android:text="Profile"
+            android:text="@string/menu_bar_profile"
+            android:textSize="12dp"
             android:layout_weight="1" />
     </LinearLayout>
 

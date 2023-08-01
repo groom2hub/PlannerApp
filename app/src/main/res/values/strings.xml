@@ -12,4 +12,8 @@
     <string name="keep_going">계속</string>
     <string name="account_question">계정이 없으신가요? </string>
     <string name="sign_up"> 회원가입</string>
+    <string name="menu_bar_profile">Profile</string>
+    <string name="menu_bar_map">Map</string>
+    <string name="menu_bar_plan">Plan</string>
+    <string name="menu_bar_home">Home</string>
 </resources>
