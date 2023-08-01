@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="kr.ac.tukorea.plannerapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +15,17 @@
         android:theme="@style/Theme.PlannerApp"
         tools:targetApi="31">
         <activity
-            android:name=".HomePageActivity"
+            android:name=".PasswordResetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
