@@ -20,7 +20,7 @@ class Plan2Adapter(var plans: List<Plan>, date: String) : RecyclerView.Adapter<R
 
     init {
         for (i in plans) {
-            if ((i.dateStart == date) and (!i.isImportant)) {
+            if ((i.dateStart == date) and (i.isImportant)) {
                 this.filteredPlanList += i
             }
         }
