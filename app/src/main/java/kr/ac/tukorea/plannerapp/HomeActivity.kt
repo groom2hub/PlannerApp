@@ -25,17 +25,6 @@ open class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Firebase.auth.currentUser == null) {
-            var loginIntent = Intent(this, MainActivity::class.java)
-            startActivity(loginIntent)
-        }
-
-        binding.logoutButton.setOnClickListener {
-            Firebase.auth.signOut()
-            var loginIntent = Intent(this, MainActivity::class.java)
-            startActivity(loginIntent)
-        }
-
         planViewModel = ViewModelProvider(this, ViewModelFactory())[PlanViewModel::class.java]
         planViewModel.findAllPlans()
 
@@ -43,6 +32,7 @@ open class HomeActivity : AppCompatActivity() {
             planlistadapter = PlanListAdapter(plans, this)
             binding.rvPlanList.adapter = planlistadapter
         }
+
 
         val planLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvPlanList.setHasFixedSize(true)

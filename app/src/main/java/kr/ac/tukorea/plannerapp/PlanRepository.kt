@@ -54,6 +54,26 @@ class PlanRepository {
                             planList.add(plan)
                         }
                     }
+                    callback(planList.sortedBy { it.d_day })
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+    }
+
+    fun findPlansByDate(date: String, callback: (List<Plan>) -> Unit) {
+        databaseReference
+            .child("plan")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val planList = mutableListOf<Plan>()
+                    for (data in snapshot.children) {
+                        val plan = data.getValue(Plan::class.java)
+                        if (plan?.d_day == date){
+                            plan.id = data.key.toString()
+                            planList.add(plan)
+                        }
+                    }
                     callback(planList)
                 }
                 override fun onCancelled(error: DatabaseError) {
