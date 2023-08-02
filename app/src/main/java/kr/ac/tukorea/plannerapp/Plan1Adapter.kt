@@ -20,7 +20,7 @@ class Plan1Adapter(var plans: List<Plan>, days: String) : RecyclerView.Adapter<R
 
     init {
         for (i in plans) {
-            if ((i.d_day == days) and (i.isImportant)) {
+            if ((i.dateStart == days) and (i.isImportant)) {
                 this.filteredPlanList += i
             }
         }
@@ -48,7 +48,7 @@ class Plan1Adapter(var plans: List<Plan>, days: String) : RecyclerView.Adapter<R
                 } else {
                     val filteredList = ArrayList<Plan>()
                     for (row in plans) {
-                        if (row.time.toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.timeStart.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }
