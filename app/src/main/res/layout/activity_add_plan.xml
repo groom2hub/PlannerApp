@@ -3,21 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PlanActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/lyNewPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/content"
+        app:layout_constraintStart_toStartOf="@+id/edtPlanContent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvNewPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="새로운 일정"
@@ -25,7 +24,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/content"
+        android:id="@+id/edtPlanContent"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
@@ -39,10 +38,10 @@
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/lyNewPlan" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvPlanSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -50,10 +49,29 @@
         android:text="시간"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content" />
+        app:layout_constraintTop_toBottomOf="@+id/edtPlanContent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="중요"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edtTime"
+        app:layout_constraintTop_toBottomOf="@+id/edtPlanContent" />
+
+    <Switch
+        android:id="@+id/swIsImportant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/date"
+        android:id="@+id/edtDate"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -65,10 +83,10 @@
         android:editable="false"
         android:focusable="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanSchedule" />
 
     <EditText
-        android:id="@+id/time"
+        android:id="@+id/edtTime"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -79,11 +97,11 @@
         android:clickable="true"
         android:editable="false"
         android:focusable="false"
-        app:layout_constraintStart_toEndOf="@+id/date"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintStart_toEndOf="@+id/edtDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanSchedule" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -93,12 +111,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/saveButton"
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:text="저장"
+        android:text="추가"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -111,7 +129,7 @@
         android:text="장소"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toBottomOf="@+id/edtDate" />
 
     <EditText
         android:id="@+id/place"

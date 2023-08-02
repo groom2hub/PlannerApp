@@ -29,7 +29,7 @@
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/tv_todo_thumbnail_background"
+        android:background="@drawable/btn_add_plan_background"
         android:drawableStart="@drawable/baseline_add_24"
         android:text="할 일을 추가해주세요"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
