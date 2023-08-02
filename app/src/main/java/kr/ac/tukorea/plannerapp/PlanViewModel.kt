@@ -28,4 +28,10 @@ class PlanViewModel: ViewModel(){
             _plans.value = plans
         }
     }
+
+    fun findPlansByDate(date: String) {
+        planRepository.findPlansByDate(date) { plans ->
+            _plans.value = plans
+        }
+    }
 }

@@ -7,7 +7,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import kr.ac.tukorea.plannerapp.databinding.PlanItem2Binding
 
-class Plan2Adapter(var plans: List<Plan>, days: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class Plan2Adapter(var plans: List<Plan>, date: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     Filterable {
     var filteredPlanList: List<Plan> = listOf()
 
@@ -20,7 +20,7 @@ class Plan2Adapter(var plans: List<Plan>, days: String) : RecyclerView.Adapter<R
 
     init {
         for (i in plans) {
-            if ((i.d_day == days) and (!i.isImportant)) {
+            if ((i.dateStart == date) and (i.isImportant)) {
                 this.filteredPlanList += i
             }
         }
@@ -48,7 +48,7 @@ class Plan2Adapter(var plans: List<Plan>, days: String) : RecyclerView.Adapter<R
                 } else {
                     val filteredList = ArrayList<Plan>()
                     for (row in plans) {
-                        if (row.time.toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.timeStart.toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }

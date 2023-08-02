@@ -54,7 +54,7 @@ class PlanRepository {
                             planList.add(plan)
                         }
                     }
-                    callback(planList.sortedBy { it.d_day })
+                    callback(planList.sortedBy { it.dateStart })
                 }
                 override fun onCancelled(error: DatabaseError) {
                 }
@@ -69,7 +69,7 @@ class PlanRepository {
                     val planList = mutableListOf<Plan>()
                     for (data in snapshot.children) {
                         val plan = data.getValue(Plan::class.java)
-                        if (plan?.d_day == date){
+                        if (plan?.dateStart == date){
                             plan.id = data.key.toString()
                             planList.add(plan)
                         }
