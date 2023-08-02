@@ -38,6 +38,24 @@ open class HomeActivity : AppCompatActivity() {
         binding.rvPlanList.setHasFixedSize(true)
         binding.rvPlanList.layoutManager = planLayoutManager
 
+        binding.btnHome.setOnClickListener {
+            var homeIntent = Intent(this, HomeActivity::class.java)
+            startActivity(homeIntent)
+        }
+        binding.btnPlan.setOnClickListener {
+            var planIntent = Intent(this, CalendarActivity::class.java)
+            startActivity(planIntent)
+        }
+        binding.btnMap.setOnClickListener {
+            var mapIntent = Intent(this, HomeActivity::class.java)
+            startActivity(mapIntent)
+        }
+        binding.btnProfile.setOnClickListener {
+            var profileIntent = Intent(this, HomeActivity::class.java)
+            startActivity(profileIntent)
+        }
+
+
         if (Firebase.auth.currentUser == null) {
             var loginIntent = Intent(this, MainActivity::class.java)
             startActivity(loginIntent)
