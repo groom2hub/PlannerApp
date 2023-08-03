@@ -68,7 +68,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="#9EEF41"
+        android:backgroundTint="#00C73C"
         android:drawableLeft="@drawable/naver_icon"
         android:gravity="center"
         android:paddingTop="20dp"

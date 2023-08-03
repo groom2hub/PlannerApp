@@ -1,14 +1,18 @@
 package kr.ac.tukorea.plannerapp
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.plannerapp.databinding.ActivityMainBinding
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -19,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        auth = Firebase.auth
 
         binding.signUpText.setOnClickListener {
             var signUpIntent = Intent(this, SignUpActivity::class.java)
@@ -30,8 +34,6 @@ class MainActivity : AppCompatActivity() {
             var passResetIntent = Intent(this, PasswordResetActivity::class.java)
             startActivity(passResetIntent)
         }
-
-        auth = Firebase.auth
 
         binding.loginButton.setOnClickListener {
             signIn()
@@ -54,9 +56,9 @@ class MainActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         //val user = auth.currentUser
                         sendToast("로그인에 성공했습니다.")
-                        var mainIntent = Intent(this, HomeActivity::class.java)
-                        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        startActivity(mainIntent)
+                        var naviIntent = Intent(this, NaviActivity::class.java)
+                        naviIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(naviIntent)
                     } else {
                         if (task.exception != null) {
                             //Log.d("test", "${task.exception.toString()}")
