@@ -1,11 +1,13 @@
 package kr.ac.tukorea.plannerapp
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.ac.tukorea.plannerapp.databinding.FragmentHomeBinding
@@ -15,6 +17,7 @@ import java.time.LocalDate
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+@RequiresApi(Build.VERSION_CODES.O)
 class PlanFragment : Fragment() {
 
     private var param1: String? = null

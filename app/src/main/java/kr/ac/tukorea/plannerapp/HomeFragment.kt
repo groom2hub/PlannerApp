@@ -1,11 +1,13 @@
 package kr.ac.tukorea.plannerapp
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -15,7 +17,7 @@ import kr.ac.tukorea.plannerapp.databinding.FragmentHomeBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+@RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : Fragment() {
 
     private var param1: String? = null
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
     private val db = Firebase.firestore
     private lateinit var planViewModel: PlanViewModel
     private lateinit var planlistadapter: PlanListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
