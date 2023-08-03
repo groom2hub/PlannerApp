@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "986045593357",
-    "project_id": "plannerapp-8cfc5",
-    "storage_bucket": "plannerapp-8cfc5.appspot.com"
+    "project_number": "343367577172",
+    "firebase_url": "https://plannerapp-57516-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "plannerapp-57516",
+    "storage_bucket": "plannerapp-57516.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:986045593357:android:7e32bad11dd1ba78732244",
+        "mobilesdk_app_id": "1:343367577172:android:ca9987c81dcc5a15f6c7c1",
         "android_client_info": {
           "package_name": "kr.ac.tukorea.plannerapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "986045593357-37rsanbblp8fnacccja0njvqk807vmg5.apps.googleusercontent.com",
+          "client_id": "343367577172-vo0mtmbh9mhdad02ji1jk4199ef8dusl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCMWWwP124xIgUbUM3Dw9IH2tKLeLmRja4"
+          "current_key": "AIzaSyAqHOp88wVVz5T2j7G0C4000t7AB3X62_Y"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "986045593357-37rsanbblp8fnacccja0njvqk807vmg5.apps.googleusercontent.com",
+              "client_id": "343367577172-vo0mtmbh9mhdad02ji1jk4199ef8dusl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

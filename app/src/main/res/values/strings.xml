@@ -14,11 +14,13 @@
     <string name="account_question">계정이 없으신가요? </string>
     <string name="sign_up"> 회원가입</string>
     <string name="forget_pass"> 비밀번호를 잊으셨나요?</string>
-    <string name="pass_reset"> 비밀번호 변경</string>
+    <string name="pass_reset"> 비밀번호 찾기</string>
     <string name="account_info"> 계정 정보</string>
-  
+
     <string name="menu_bar_profile">Profile</string>
     <string name="menu_bar_map">Map</string>
     <string name="menu_bar_plan">Plan</string>
     <string name="menu_bar_home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

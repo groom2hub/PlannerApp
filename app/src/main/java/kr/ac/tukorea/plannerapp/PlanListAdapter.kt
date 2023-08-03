@@ -15,7 +15,7 @@ class PlanListAdapter(var plans: List<Plan>, context: Context) : RecyclerView.Ad
     var filteredPlanList: List<Plan> = listOf()
     var dateList: List<String> = listOf()
 
-        inner class ViewHolder(itemView: PlanItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
+    inner class ViewHolder(itemView: PlanItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
         private val date = itemView.tvDate
         private val rvPlan1 = itemView.rvPlanItems1
         private val rvPlan2 = itemView.rvPlanItems2

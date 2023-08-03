@@ -79,7 +79,7 @@
         android:ems="5"
         android:inputType="date"
         android:text="날짜"
-        android:clickable="true"
+        android:clickable="false"
         android:editable="false"
         android:focusable="false"
         app:layout_constraintStart_toStartOf="parent"
