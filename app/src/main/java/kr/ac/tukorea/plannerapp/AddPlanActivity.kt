@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
+import java.text.DecimalFormat
 import java.time.LocalDate
 import kotlin.math.min
 
@@ -21,6 +22,8 @@ import kotlin.math.min
 class AddPlanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPlanBinding
     private val planRepository: PlanRepository = PlanRepository.getInstance()
+    private val dateFormat = DecimalFormat("00")
+    private lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class AddPlanActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val secondIntent = intent
-        val date = secondIntent.getStringExtra("날짜").toString()
+        date = secondIntent.getStringExtra("날짜").toString()
         var time: String = "시간"
         var isImportant: Boolean = false
 
@@ -41,11 +44,9 @@ class AddPlanActivity : AppCompatActivity() {
 
         binding.tvDateStart.setOnClickListener {
             val cal = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                var year = y
-                var month = m + 1
-                var day = d
-                binding.tvDateStart.setText("$year-${month}-$day")
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                date = "${year}-${dateFormat.format(month + 1)}-${dateFormat.format(dayOfMonth)}"
+                binding.tvDateStart.setText(date)
             }
             var datePickerDialog = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH))
             datePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -54,11 +55,9 @@ class AddPlanActivity : AppCompatActivity() {
 
         binding.tvDateEnd.setOnClickListener {
             val cal = Calendar.getInstance()
-            val dateSetListener = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                var year = y
-                var month = m + 1
-                var day = d
-                binding.tvDateEnd.setText("$year-${month}-$day")
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                date = "${year}-${dateFormat.format(month + 1)}-${dateFormat.format(dayOfMonth)}"
+                binding.tvDateEnd.setText(date)
             }
             var datePickerDialog = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH))
             datePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)

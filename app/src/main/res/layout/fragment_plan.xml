@@ -26,13 +26,12 @@
 
     <Button
         android:id="@+id/btnAddPlan"
-        android:layout_width="328dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_add_plan_background"
-        android:drawableStart="@drawable/baseline_add_24"
-        android:text="할 일을 추가해주세요"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvPlanList" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
