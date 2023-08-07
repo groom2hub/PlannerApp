@@ -31,6 +31,7 @@ class HomeFragment : Fragment() {
     private lateinit var planViewModel: PlanViewModel
     private lateinit var planlistadapter: PlanListAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
