@@ -1,38 +1,70 @@
 package kr.ac.tukorea.plannerapp
 
 import android.R
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Rect
 import android.icu.util.Calendar
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
+import java.text.DecimalFormat
 import java.time.LocalDate
 import kotlin.math.min
 
+@RequiresApi(Build.VERSION_CODES.O)
 class AddPlanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPlanBinding
+    private val planRepository: PlanRepository = PlanRepository.getInstance()
+    private val dateFormat = DecimalFormat("00")
+    private lateinit var date: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddPlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val secondIntent = intent
-        val date = secondIntent.getStringExtra("날짜").toString()
+        date = secondIntent.getStringExtra("날짜").toString()
         var time: String = "시간"
         var isImportant: Boolean = false
 
-        binding.edtDate.setText(date)
+        binding.tvDateStart.setText(date)
+        binding.tvDateEnd.setText(date)
 
         binding.btnCancel.setOnClickListener {
             finish()
         }
 
-        binding.edtTime.setOnClickListener {
+        binding.tvDateStart.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                date = "${year}-${dateFormat.format(month + 1)}-${dateFormat.format(dayOfMonth)}"
+                binding.tvDateStart.setText(date)
+            }
+            var datePickerDialog = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH))
+            datePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            datePickerDialog.show()
+        }
+
+        binding.tvDateEnd.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                date = "${year}-${dateFormat.format(month + 1)}-${dateFormat.format(dayOfMonth)}"
+                binding.tvDateEnd.setText(date)
+            }
+            var datePickerDialog = DatePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH))
+            datePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            datePickerDialog.show()
+        }
+
+        binding.tvTimeStart.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                 var state = "오전"
@@ -46,7 +78,28 @@ class AddPlanActivity : AppCompatActivity() {
                 } else {
                     time = "$state $hour : $minute"
                 }
-                binding.edtTime.setText(time)
+                binding.tvTimeStart.setText(time)
+            }
+            var timePicker = TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false)
+            timePicker.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            timePicker.show()
+        }
+
+        binding.tvTimeEnd.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                var state = "오전"
+                var hour = hourOfDay
+                if (hourOfDay > 12) {
+                    hour -= 12
+                    state = "오후"
+                }
+                if (minute.toString().length == 1) {
+                    time = "$state $hour : 0$minute"
+                } else {
+                    time = "$state $hour : $minute"
+                }
+                binding.tvTimeEnd.setText(time)
             }
             var timePicker = TimePickerDialog(this, android.R.style.Theme_Holo_Light_Dialog_NoActionBar, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE),false)
             timePicker.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -58,15 +111,20 @@ class AddPlanActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener {
-            var content = binding.edtPlanContent.text.toString()
-
-            if (content.isNotEmpty() && time != "시간") {
-                sendToast("제목: $content")
-                sendToast("날짜: $date")
-                sendToast("시간: $time")
-                sendToast("중요: $isImportant")
+            if (binding.edtPlanContent.text.isNotEmpty() && time != "시간") {
+                val newPlan = Plan(
+                    "user1",
+                    binding.edtPlanContent.text.toString(),
+                    binding.tvDateStart.text.toString(),
+                    binding.tvDateEnd.text.toString(),
+                    binding.tvTimeStart.text.toString(),
+                    binding.tvTimeEnd.text.toString(),
+                    binding.swIsImportant.isChecked
+                )
+                planRepository.savePlan {
+                    it.setValue(newPlan)
+                }
                 finish()
-
             } else {
                 sendToast("제목 또는 시간을 입력하세요.")
             }

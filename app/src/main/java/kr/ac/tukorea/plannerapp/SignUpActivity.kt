@@ -1,8 +1,12 @@
 package kr.ac.tukorea.plannerapp
 
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -41,7 +45,7 @@ class SignUpActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val user = auth.currentUser
                             sendToast("회원가입에 성공했습니다.")
-                            val memberInfo = MemberInfo(name)
+                            val memberInfo = MemberInfo(name, email)
                             if (user != null) {
                                 db.collection("users").document(user.uid).set(memberInfo)
                                     .addOnSuccessListener { Log.d("test", "DocumentSnapshot successfully written!") }
@@ -82,5 +86,23 @@ class SignUpActivity : AppCompatActivity() {
 
     data class MemberInfo(
         val name: String? = null,
+        val email: String? = null,
     )
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean { //키보드 이외의 화면 터치 시 키보드 비활성화
+        val focusView: View? = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm: InputMethodManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 }
