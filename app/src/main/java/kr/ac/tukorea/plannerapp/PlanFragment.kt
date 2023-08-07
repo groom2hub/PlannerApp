@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import kr.ac.tukorea.plannerapp.databinding.FragmentHomeBinding
 import kr.ac.tukorea.plannerapp.databinding.FragmentPlanBinding
 import java.text.DecimalFormat
 import java.time.LocalDate
