@@ -104,7 +104,9 @@ class AddPlanActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener {
-            if (binding.edtPlanContent.text.isNotEmpty() && time != "시간") {
+            if (binding.edtPlanContent.text.isEmpty()) {
+                sendToast("제목을 입력하세요.")
+            } else {
                 val newPlan = Plan(
                     "user1",
                     binding.edtPlanContent.text.toString(),
@@ -120,8 +122,6 @@ class AddPlanActivity : AppCompatActivity() {
                 secondIntent.putExtra("날짜", binding.tvDateStart.text.toString())
                 setResult(Activity.RESULT_OK, secondIntent)
                 finish()
-            } else {
-                sendToast("제목 또는 시간을 입력하세요.")
             }
         }
     }
