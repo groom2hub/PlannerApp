@@ -1,6 +1,7 @@
 package kr.ac.tukorea.plannerapp
 
 import android.R
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Rect
@@ -15,8 +16,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
 import java.text.DecimalFormat
-import java.time.LocalDate
-import kotlin.math.min
 
 @RequiresApi(Build.VERSION_CODES.O)
 class AddPlanActivity : AppCompatActivity() {
@@ -124,6 +123,8 @@ class AddPlanActivity : AppCompatActivity() {
                 planRepository.savePlan {
                     it.setValue(newPlan)
                 }
+                secondIntent.putExtra("날짜", binding.tvDateStart.text.toString())
+                setResult(Activity.RESULT_OK, secondIntent)
                 finish()
             } else {
                 sendToast("제목 또는 시간을 입력하세요.")
