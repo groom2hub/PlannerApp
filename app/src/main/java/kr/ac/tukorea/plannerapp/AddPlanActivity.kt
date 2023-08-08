@@ -16,12 +16,14 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
 import java.text.DecimalFormat
+import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 class AddPlanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPlanBinding
     private val planRepository: PlanRepository = PlanRepository.getInstance()
     private val dateFormat = DecimalFormat("00")
+    private val timeFormat = DecimalFormat("00")
     private lateinit var date: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +36,10 @@ class AddPlanActivity : AppCompatActivity() {
         var time: String = "시간"
         var isImportant: Boolean = false
 
-        binding.tvDateStart.setText(date)
-        binding.tvDateEnd.setText(date)
+        binding.tvDateStart.setText(secondIntent.getStringExtra("dateStart").toString())
+        binding.tvDateEnd.setText(secondIntent.getStringExtra("dateEnd").toString())
+        binding.tvTimeStart.setText(secondIntent.getStringExtra("timeStart").toString())
+        binding.tvTimeEnd.setText(secondIntent.getStringExtra("timeEnd").toString())
 
         binding.btnCancel.setOnClickListener {
             finish()
@@ -66,16 +70,11 @@ class AddPlanActivity : AppCompatActivity() {
         binding.tvTimeStart.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                var state = "오전"
-                var hour = hourOfDay
-                if (hourOfDay > 12) {
-                    hour -= 12
-                    state = "오후"
+                if (hourOfDay > 11) {
+                    time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
                 }
-                if (minute.toString().length == 1) {
-                    time = "$state $hour : 0$minute"
-                } else {
-                    time = "$state $hour : $minute"
+                else {
+                    time = "오전 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
                 }
                 binding.tvTimeStart.setText(time)
             }
@@ -87,16 +86,11 @@ class AddPlanActivity : AppCompatActivity() {
         binding.tvTimeEnd.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                var state = "오전"
-                var hour = hourOfDay
-                if (hourOfDay > 12) {
-                    hour -= 12
-                    state = "오후"
+                if (hourOfDay > 11) {
+                    time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
                 }
-                if (minute.toString().length == 1) {
-                    time = "$state $hour : 0$minute"
-                } else {
-                    time = "$state $hour : $minute"
+                else {
+                    time = "오전 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
                 }
                 binding.tvTimeEnd.setText(time)
             }
