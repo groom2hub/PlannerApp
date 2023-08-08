@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                         if (task.exception != null) {
                             //Log.d("test", "${task.exception.toString()}")
                             if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.") {
-                                sendToast("잘못된 이메일입니다.")
+                                sendToast("가입하지 않은 이메일입니다.")
                             }
                             else if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The password is invalid or the user does not have a password.") {
                                 sendToast("잘못된 비밀번호입니다.")
