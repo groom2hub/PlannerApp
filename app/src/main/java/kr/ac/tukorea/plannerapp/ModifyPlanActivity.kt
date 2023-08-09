@@ -1,6 +1,5 @@
 package kr.ac.tukorea.plannerapp
 
-import android.R
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -14,32 +13,35 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
+import kr.ac.tukorea.plannerapp.databinding.ActivityModifyPlanBinding
+import kr.ac.tukorea.plannerapp.databinding.FragmentPlanBinding
 import java.text.DecimalFormat
-import java.time.LocalDateTime
+import kotlin.properties.Delegates
 
 @RequiresApi(Build.VERSION_CODES.O)
-class AddPlanActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityAddPlanBinding
+class ModifyPlanActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityModifyPlanBinding
     private val planRepository: PlanRepository = PlanRepository.getInstance()
     private val dateFormat = DecimalFormat("00")
     private val timeFormat = DecimalFormat("00")
     private lateinit var date: String
+    private lateinit var time: String
+    private var isImportant by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddPlanBinding.inflate(layoutInflater)
+        binding = ActivityModifyPlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val secondIntent = intent
-        date = secondIntent.getStringExtra("날짜").toString()
-        var time: String = "시간"
-        var isImportant: Boolean = false
+        val plan = secondIntent.getSerializableExtra("plan_item") as Plan
 
-        binding.tvDateStart.setText(secondIntent.getStringExtra("dateStart").toString())
-        binding.tvDateEnd.setText(secondIntent.getStringExtra("dateEnd").toString())
-        binding.tvTimeStart.setText(secondIntent.getStringExtra("timeStart").toString())
-        binding.tvTimeEnd.setText(secondIntent.getStringExtra("timeEnd").toString())
+        binding.tvDateStart.setText(plan.dateStart)
+        binding.tvDateEnd.setText(plan.dateEnd)
+        binding.tvTimeStart.setText(plan.timeStart)
+        binding.tvTimeEnd.setText(plan.timeEnd)
+        binding.swIsImportant.isChecked = plan.isImportant
+        binding.edtPlanContent.setText(plan.context)
 
         binding.btnCancel.setOnClickListener {
             finish()
@@ -103,25 +105,25 @@ class AddPlanActivity : AppCompatActivity() {
             isImportant = isChecked
         }
 
-        binding.btnAdd.setOnClickListener {
-            if (binding.edtPlanContent.text.isEmpty()) {
-                sendToast("제목을 입력하세요.")
-            } else {
-                val newPlan = Plan(
-                    "user1",
-                    binding.edtPlanContent.text.toString(),
-                    binding.tvDateStart.text.toString(),
-                    binding.tvDateEnd.text.toString(),
-                    binding.tvTimeStart.text.toString(),
-                    binding.tvTimeEnd.text.toString(),
-                    binding.swIsImportant.isChecked
-                )
-                planRepository.savePlan(newPlan)
+        binding.btnDelete.setOnClickListener {
+            planRepository.deletePlan(plan.id)
+            finish()
+        }
 
-                secondIntent.putExtra("날짜", binding.tvDateStart.text.toString())
-                setResult(Activity.RESULT_OK, secondIntent)
-                finish()
-            }
+        binding.btnModify.setOnClickListener {
+            val newPlan = Plan(
+                "user1",
+                binding.edtPlanContent.text.toString(),
+                binding.tvDateStart.text.toString(),
+                binding.tvDateEnd.text.toString(),
+                binding.tvTimeStart.text.toString(),
+                binding.tvTimeEnd.text.toString(),
+                binding.swIsImportant.isChecked
+            )
+
+            secondIntent.putExtra("plan_item", newPlan)
+            setResult(Activity.RESULT_OK, secondIntent)
+            finish()
         }
     }
 

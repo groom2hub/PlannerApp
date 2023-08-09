@@ -22,9 +22,14 @@ class PlanRepository {
             return INSTANCE
         }
     }
+    fun deletePlan(planId: String) {
+        databaseReference.child("plan/${planId}").removeValue()
+    }
 
-    fun savePlan(callback: (DatabaseReference) -> Task<Void>) {
-        callback(databaseReference.child("plan").push())
+    fun savePlan(plan: Plan) {
+        val key = databaseReference.child("plan").push().key
+        plan.id = key.toString()
+        databaseReference.child("plan/${key}").setValue(plan)
     }
 
     fun findPlan(postId: String, callback: (Plan) -> Unit) {

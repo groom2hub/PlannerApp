@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.ac.tukorea.plannerapp.databinding.PlanItemListBinding
 
-class PlanListAdapter(var plans: List<Plan>, context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class PlanListAdapter(var plans: List<Plan>, var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     Filterable {
     var filteredPlanList: List<Plan> = listOf()
     var dateList: List<String> = listOf()
@@ -23,12 +23,12 @@ class PlanListAdapter(var plans: List<Plan>, context: Context) : RecyclerView.Ad
         fun bind(position: Int) {
             date.text = dateList[position]
             rvPlan1.apply {
-                adapter = Plan1Adapter(plans, dateList[position])
+                adapter = Plan1Adapter(plans, dateList[position], context)
                 layoutManager =
                     LinearLayoutManager(rvPlan1.context, LinearLayoutManager.VERTICAL, false)
             }
             rvPlan2.apply {
-                adapter = Plan2Adapter(plans, dateList[position])
+                adapter = Plan2Adapter(plans, dateList[position], context)
                 layoutManager =
                     LinearLayoutManager(rvPlan2.context, LinearLayoutManager.VERTICAL, false)
             }
