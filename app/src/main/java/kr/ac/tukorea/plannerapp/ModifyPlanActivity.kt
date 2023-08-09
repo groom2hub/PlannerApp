@@ -112,7 +112,7 @@ class ModifyPlanActivity : AppCompatActivity() {
 
         binding.btnModify.setOnClickListener {
             val newPlan = Plan(
-                "user1",
+                plan.id,
                 binding.edtPlanContent.text.toString(),
                 binding.tvDateStart.text.toString(),
                 binding.tvDateEnd.text.toString(),
@@ -120,6 +120,7 @@ class ModifyPlanActivity : AppCompatActivity() {
                 binding.tvTimeEnd.text.toString(),
                 binding.swIsImportant.isChecked
             )
+            planRepository.modifyPlan(newPlan)
 
             secondIntent.putExtra("plan_item", newPlan)
             setResult(Activity.RESULT_OK, secondIntent)

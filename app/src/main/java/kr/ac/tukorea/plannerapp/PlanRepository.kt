@@ -1,9 +1,7 @@
 package kr.ac.tukorea.plannerapp
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -24,6 +22,10 @@ class PlanRepository {
     }
     fun deletePlan(planId: String) {
         databaseReference.child("plan/${planId}").removeValue()
+    }
+
+    fun modifyPlan(plan: Plan) {
+        databaseReference.child("plan/${plan.id}").setValue(plan)
     }
 
     fun savePlan(plan: Plan) {
