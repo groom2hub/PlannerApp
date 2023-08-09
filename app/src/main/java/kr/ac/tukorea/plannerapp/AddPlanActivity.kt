@@ -116,9 +116,8 @@ class AddPlanActivity : AppCompatActivity() {
                     binding.tvTimeEnd.text.toString(),
                     binding.swIsImportant.isChecked
                 )
-                planRepository.savePlan {
-                    it.setValue(newPlan)
-                }
+                planRepository.savePlan(newPlan)
+
                 secondIntent.putExtra("날짜", binding.tvDateStart.text.toString())
                 setResult(Activity.RESULT_OK, secondIntent)
                 finish()
