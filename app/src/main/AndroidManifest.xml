@@ -21,12 +21,12 @@
             android:name=".PasswordResetActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".NaviActivity"
             android:exported="true">

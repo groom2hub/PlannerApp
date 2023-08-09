@@ -3,6 +3,7 @@ package kr.ac.tukorea.plannerapp
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import kr.ac.tukorea.plannerapp.databinding.FragmentHomeBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeFragment : Fragment() {
 
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
 
         if (Firebase.auth.currentUser == null) {
             activity?.let{
-                val intent = Intent (it, MainActivity::class.java)
+                val intent = Intent (it, LoginActivity::class.java)
                 it.startActivity(intent)
             }
         }
@@ -52,6 +54,7 @@ class HomeFragment : Fragment() {
     ): View? {
 
         hBinding = FragmentHomeBinding.inflate(inflater)
+        lateinit var uId: String
 
         planViewModel = ViewModelProvider(this, ViewModelFactory())[PlanViewModel::class.java]
         planViewModel.findAllPlans()
@@ -65,14 +68,6 @@ class HomeFragment : Fragment() {
         binding.rvPlanList.setHasFixedSize(true)
         binding.rvPlanList.layoutManager = planLayoutManager
 
-        binding.logoutButton.setOnClickListener {
-            Firebase.auth.signOut()
-            activity?.let{
-                val intent = Intent (it, MainActivity::class.java)
-                it.startActivity(intent)
-            }
-        }
-
         db.collection("users")
             .get()
             .addOnCompleteListener { task ->
@@ -80,7 +75,25 @@ class HomeFragment : Fragment() {
                     for (i in task.result) {
                         if (i.id == Firebase.auth.currentUser?.uid) {
                             val userName = i.data["name"]
+                            val userId = i.id
+                            uId = userId
                             binding.userNameText.text = userName.toString()
+
+                            val userData = db.collection("users").document(uId)
+                            userData.addSnapshotListener { snapshot, e ->
+                                if (e != null) {
+                                    Log.w("test", "Listen failed.", e)
+                                    return@addSnapshotListener
+                                }
+
+                                if (snapshot != null && snapshot.exists()) {
+                                    Log.d("test", "Current data: ${snapshot.data}")
+                                    var newName = snapshot.data?.get("name").toString()
+                                    binding.userNameText.text = newName
+                                } else {
+                                    Log.d("test", "Current data: null")
+                                }
+                            }
                         }
                     }
                 }
