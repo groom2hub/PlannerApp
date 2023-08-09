@@ -22,6 +22,9 @@ class PlanRepository {
             return INSTANCE
         }
     }
+    fun deletePlan(planId: String) {
+        databaseReference.child("plan/${planId}").removeValue()
+    }
 
     fun savePlan(plan: Plan) {
         val key = databaseReference.child("plan").push().key
