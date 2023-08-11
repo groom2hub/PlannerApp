@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import kr.ac.tukorea.plannerapp.databinding.FragmentPlanBinding
 import java.text.DecimalFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -27,8 +28,10 @@ class PlanFragment : Fragment() {
 
     private var param1: String? = null
     private var param2: String? = null
-    var date: String = "${LocalDate.now()}"
+    private var date: String = "${LocalDate.now()}"
+    private lateinit var time: String
     private var dateFormat = DecimalFormat("00")
+    private var timeFormat = DecimalFormat("00")
 
     private var hBinding: FragmentPlanBinding? = null
     private val binding get() = hBinding!!
@@ -49,7 +52,6 @@ class PlanFragment : Fragment() {
     ): View? {
         hBinding = FragmentPlanBinding.inflate(inflater)
         var days = "${LocalDate.now().monthValue} 월 ${LocalDate.now().dayOfMonth} 일"
-        var time: String = "09:00"
 
         val mDBReference = FirebaseDatabase.getInstance().reference
         mDBReference.addValueEventListener(object : ValueEventListener {
@@ -81,7 +83,16 @@ class PlanFragment : Fragment() {
             activity?.let {
                 val intent = Intent(it, AddPlanActivity::class.java)
                 intent.apply {
-                    this.putExtra("날짜", date)
+                    this.putExtra("dateStart", date)
+                    this.putExtra("dateEnd", date)
+                    if (LocalDateTime.now().hour > 12) {
+                        time = "오후 ${timeFormat.format(LocalDateTime.now().hour - 12)} : ${timeFormat.format(LocalDateTime.now().minute)}"
+                    }
+                    else {
+                        time = "오전 ${LocalDateTime.now().hour} : ${LocalDateTime.now().minute}"
+                    }
+                    this.putExtra("timeStart", time)
+                    this.putExtra("timeEnd", time)
                 }
                 startActivityForResult(intent, 0)
             }
@@ -111,4 +122,5 @@ class PlanFragment : Fragment() {
                 }
             }
     }
+
 }

@@ -18,6 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
 import java.text.DecimalFormat
+import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 class AddPlanActivity : AppCompatActivity() {
@@ -38,8 +39,10 @@ class AddPlanActivity : AppCompatActivity() {
         var time: String = "시간"
         var isImportant: Boolean = false
 
-        binding.tvDateStart.setText(date)
-        binding.tvDateEnd.setText(date)
+        binding.tvDateStart.setText(secondIntent.getStringExtra("dateStart").toString())
+        binding.tvDateEnd.setText(secondIntent.getStringExtra("dateEnd").toString())
+        binding.tvTimeStart.setText(secondIntent.getStringExtra("timeStart").toString())
+        binding.tvTimeEnd.setText(secondIntent.getStringExtra("timeEnd").toString())
 
         binding.btnCancel.setOnClickListener {
             finish()
@@ -86,7 +89,7 @@ class AddPlanActivity : AppCompatActivity() {
                     if (hourOfDay < 10)
                         time = "오전 ${timeFormat.format(hourOfDay)[1]} : ${timeFormat.format(minute)}"
                     else
-                        time = "오전 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}"
+                        time = "오전 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}
                 }
                 binding.tvTimeStart.setText(time)
             }
@@ -128,7 +131,9 @@ class AddPlanActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener {
-            if (binding.edtPlanContent.text.isNotEmpty() && time != "시간") {
+            if (binding.edtPlanContent.text.isEmpty()) {
+                sendToast("제목을 입력하세요.")
+            } else {
                 val newPlan = Plan(
                     Firebase.auth.currentUser!!.uid,
                     binding.edtPlanContent.text.toString(),
@@ -143,8 +148,6 @@ class AddPlanActivity : AppCompatActivity() {
                 secondIntent.putExtra("날짜", binding.tvDateStart.text.toString())
                 setResult(Activity.RESULT_OK, secondIntent)
                 finish()
-            } else {
-                sendToast("제목 또는 시간을 입력하세요.")
             }
         }
     }

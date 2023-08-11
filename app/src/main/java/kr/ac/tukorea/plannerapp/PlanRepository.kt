@@ -21,6 +21,13 @@ class PlanRepository(uId: String) {
             return INSTANCE!!
         }
     }
+    fun deletePlan(planId: String) {
+        databaseReference.child("plan/${planId}").removeValue()
+    }
+
+    fun modifyPlan(plan: Plan) {
+        databaseReference.child("plan/${plan.id}").setValue(plan)
+    }
 
     fun deletePlan(planId: String) {
         planDatabaseReference.child("plan/${planId}").removeValue()
