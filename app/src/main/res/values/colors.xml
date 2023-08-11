@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="menuColor">#65CD69</color>
+    <color name="basic_background">#D7F1FA</color>
 </resources>

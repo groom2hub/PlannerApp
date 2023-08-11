@@ -14,6 +14,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.plannerapp.databinding.ActivityAddPlanBinding
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -21,7 +23,8 @@ import java.time.LocalDateTime
 @RequiresApi(Build.VERSION_CODES.O)
 class AddPlanActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddPlanBinding
-    private val planRepository: PlanRepository = PlanRepository.getInstance()
+
+    private val planRepository = PlanRepository.getInstance(Firebase.auth.currentUser!!.uid)
     private val dateFormat = DecimalFormat("00")
     private val timeFormat = DecimalFormat("00")
     private lateinit var date: String
@@ -70,11 +73,23 @@ class AddPlanActivity : AppCompatActivity() {
         binding.tvTimeStart.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                if (hourOfDay > 11) {
-                    time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                if (hourOfDay > 12) {
+                    if (hourOfDay < 22)
+                        time = "오후 ${timeFormat.format(hourOfDay - 12)[1]} : ${timeFormat.format(minute)}"
+                    else
+                        time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                }
+                else if (hourOfDay == 12) {
+                    time = "오후 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}"
+                }
+                else if (hourOfDay == 0) {
+                    time = "오전 ${timeFormat.format(12)} : ${timeFormat.format(minute)}"
                 }
                 else {
-                    time = "오전 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                    if (hourOfDay < 10)
+                        time = "오전 ${timeFormat.format(hourOfDay)[1]} : ${timeFormat.format(minute)}"
+                    else
+                        time = "오전 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}
                 }
                 binding.tvTimeStart.setText(time)
             }
@@ -86,11 +101,23 @@ class AddPlanActivity : AppCompatActivity() {
         binding.tvTimeEnd.setOnClickListener {
             val cal = Calendar.getInstance()
             val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                if (hourOfDay > 11) {
-                    time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                if (hourOfDay > 12) {
+                    if (hourOfDay < 22)
+                        time = "오후 ${timeFormat.format(hourOfDay - 12)[1]} : ${timeFormat.format(minute)}"
+                    else
+                        time = "오후 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                }
+                else if (hourOfDay == 12) {
+                    time = "오후 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}"
+                }
+                else if (hourOfDay == 0) {
+                    time = "오전 ${timeFormat.format(12)} : ${timeFormat.format(minute)}"
                 }
                 else {
-                    time = "오전 ${timeFormat.format(hourOfDay - 12)} : ${timeFormat.format(minute)}"
+                    if (hourOfDay < 10)
+                        time = "오전 ${timeFormat.format(hourOfDay)[1]} : ${timeFormat.format(minute)}"
+                    else
+                        time = "오전 ${timeFormat.format(hourOfDay)} : ${timeFormat.format(minute)}"
                 }
                 binding.tvTimeEnd.setText(time)
             }
@@ -108,7 +135,7 @@ class AddPlanActivity : AppCompatActivity() {
                 sendToast("제목을 입력하세요.")
             } else {
                 val newPlan = Plan(
-                    "user1",
+                    Firebase.auth.currentUser!!.uid,
                     binding.edtPlanContent.text.toString(),
                     binding.tvDateStart.text.toString(),
                     binding.tvDateEnd.text.toString(),

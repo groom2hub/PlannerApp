@@ -3,7 +3,6 @@ package kr.ac.tukorea.plannerapp
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,10 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kr.ac.tukorea.plannerapp.databinding.FragmentHomeBinding
@@ -29,7 +32,6 @@ class HomeFragment : Fragment() {
     private val binding get() = hBinding!!
     private val db = Firebase.firestore
     private lateinit var planViewModel: PlanViewModel
-    private lateinit var planlistadapter: PlanListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +47,6 @@ class HomeFragment : Fragment() {
                 it.startActivity(intent)
             }
         }
-
     }
 
     override fun onCreateView(
@@ -54,19 +55,6 @@ class HomeFragment : Fragment() {
     ): View? {
 
         hBinding = FragmentHomeBinding.inflate(inflater)
-        lateinit var uId: String
-
-        planViewModel = ViewModelProvider(this, ViewModelFactory())[PlanViewModel::class.java]
-        planViewModel.findAllPlans()
-
-        planViewModel.plans.observe(viewLifecycleOwner) { plans ->
-            planlistadapter = PlanListAdapter(plans, requireContext())
-            binding.rvPlanList.adapter = planlistadapter
-        }
-
-        val planLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvPlanList.setHasFixedSize(true)
-        binding.rvPlanList.layoutManager = planLayoutManager
 
         db.collection("users")
             .get()
@@ -76,28 +64,44 @@ class HomeFragment : Fragment() {
                         if (i.id == Firebase.auth.currentUser?.uid) {
                             val userName = i.data["name"]
                             val userId = i.id
-                            uId = userId
                             binding.userNameText.text = userName.toString()
 
-                            val userData = db.collection("users").document(uId)
+                            val userData = db.collection("users").document(userId)
+
                             userData.addSnapshotListener { snapshot, e ->
                                 if (e != null) {
-                                    Log.w("test", "Listen failed.", e)
                                     return@addSnapshotListener
                                 }
 
                                 if (snapshot != null && snapshot.exists()) {
-                                    Log.d("test", "Current data: ${snapshot.data}")
                                     var newName = snapshot.data?.get("name").toString()
                                     binding.userNameText.text = newName
-                                } else {
-                                    Log.d("test", "Current data: null")
                                 }
                             }
                         }
                     }
                 }
             }
+
+        val mDBReference = FirebaseDatabase.getInstance().reference
+        mDBReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                planViewModel = ViewModelProvider(this@HomeFragment, ViewModelFactory())[PlanViewModel::class.java]
+                planViewModel.findAllPlans()
+
+                planViewModel.plans.observe(viewLifecycleOwner) { plans ->
+                    val planlistadapter = context?.let { PlanListAdapter(plans, it) }
+                    binding.rvPlanList.adapter = planlistadapter
+                }
+
+                val planLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                binding.rvPlanList.setHasFixedSize(true)
+                binding.rvPlanList.layoutManager = planLayoutManager
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         return binding.root
     }

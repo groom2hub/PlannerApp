@@ -10,6 +10,8 @@ class ViewModelFactory() : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(PlanViewModel::class.java)) {
             PlanViewModel() as T
+        } else if (modelClass.isAssignableFrom(FriendViewModel::class.java)) {
+            FriendViewModel() as T
         } else {
             throw IllegalArgumentException()
         }

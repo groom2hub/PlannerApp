@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -65,15 +66,18 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(naviIntent)
                     } else {
                         if (task.exception != null) {
-                            //Log.d("test", "${task.exception.toString()}")
+                            Log.d("test", task.exception.toString())
                             if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidUserException: There is no user record corresponding to this identifier. The user may have been deleted.") {
                                 sendToast("가입하지 않은 이메일입니다.")
                             }
                             else if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The password is invalid or the user does not have a password.") {
                                 sendToast("잘못된 비밀번호입니다.")
                             }
+                            else if (task.exception.toString() == "com.google.firebase.auth.FirebaseAuthInvalidCredentialsException: The email address is badly formatted.") {
+                                sendToast("잘못된 형식의 이메일입니다.")
+                            }
                             else {
-                                sendToast(task.exception.toString())
+                                sendToast("로그인에 실패했습니다.")
                             }
                         }
                     }

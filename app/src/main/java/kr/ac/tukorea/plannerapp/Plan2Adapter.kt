@@ -14,7 +14,7 @@ class Plan2Adapter(var plans: List<Plan>, var date: String, var context: Context
     var filteredPlanList: List<Plan> = listOf()
 
     inner class ViewHolder(itemView: PlanItem2Binding) : RecyclerView.ViewHolder(itemView.root) {
-        private val planContext = itemView.tvTodo
+        private var planContext = itemView.tvTodo
         fun bind(position: Int) {
             planContext.text = filteredPlanList[position].context
             itemView.setOnClickListener {

@@ -16,9 +16,9 @@ class PlanListAdapter(var plans: List<Plan>, var context: Context) : RecyclerVie
     var dateList: List<String> = listOf()
 
     inner class ViewHolder(itemView: PlanItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
-        private val date = itemView.tvDate
-        private val rvPlan1 = itemView.rvPlanItems1
-        private val rvPlan2 = itemView.rvPlanItems2
+        private var date = itemView.tvDate
+        private var rvPlan1 = itemView.rvPlanItems1
+        private var rvPlan2 = itemView.rvPlanItems2
 
         fun bind(position: Int) {
             date.text = dateList[position]

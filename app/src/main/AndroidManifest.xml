@@ -18,6 +18,9 @@
             android:name=".ModifyPlanActivity"
             android:exported="false" />
         <activity
+            android:name=".FriendManageActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddPlanActivity"
             android:exported="false" />
         <activity
