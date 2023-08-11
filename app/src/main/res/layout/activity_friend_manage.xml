@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:text="친구 목록"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backImgView" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목록 없음"
+        android:textSize="34sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/FriendList"
+        app:layout_constraintEnd_toEndOf="@+id/FriendList"
+        app:layout_constraintStart_toStartOf="@+id/FriendList"
+        app:layout_constraintTop_toTopOf="@+id/FriendList" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/FriendList"
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView
+        android:id="@+id/backImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        app:tint="#535353"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+    <ImageView
+        android:id="@+id/addFriendImgView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="89dp"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_add_24"
+        app:tint="#535353" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

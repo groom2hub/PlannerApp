@@ -1,5 +1,7 @@
 package kr.ac.tukorea.plannerapp
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -7,14 +9,19 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import kr.ac.tukorea.plannerapp.databinding.PlanItem2Binding
 
-class Plan2Adapter(var plans: List<Plan>, date: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+class Plan2Adapter(var plans: List<Plan>, var date: String, var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     Filterable {
     var filteredPlanList: List<Plan> = listOf()
 
     inner class ViewHolder(itemView: PlanItem2Binding) : RecyclerView.ViewHolder(itemView.root) {
-        private val planContext = itemView.tvTodo
+        private var planContext = itemView.tvTodo
         fun bind(position: Int) {
             planContext.text = filteredPlanList[position].context
+            itemView.setOnClickListener {
+                val intent = Intent(context, ModifyPlanActivity::class.java)
+                intent.putExtra("plan_item", filteredPlanList[position])
+                context.startActivity(intent)
+            }
         }
     }
 

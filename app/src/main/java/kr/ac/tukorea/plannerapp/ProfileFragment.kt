@@ -4,13 +4,14 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,8 @@ class ProfileFragment : Fragment() {
     private var hBinding: FragmentProfileBinding? = null
     private val binding get() = hBinding!!
     private val db = Firebase.firestore
+    private val editTextId = 1000006
+    private val editTextPasswordId = 1000007
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +70,7 @@ class ProfileFragment : Fragment() {
             builder.setTitle("이름 변경")
 
             val editText = EditText(requireContext())
-            editText.id = R.id.editTextName
+            editText.id = editTextId
             editText.hint = "변경할 이름"
             editText.isSingleLine = true
 
@@ -110,7 +113,7 @@ class ProfileFragment : Fragment() {
             builder.setTitle("계정을 탈퇴하시겠습니까?")
 
             val editTextPassword = EditText(requireContext())
-            editTextPassword.id = R.id.editTextName
+            editTextPassword.id = editTextPasswordId
             editTextPassword.hint = "비밀번호 입력"
             editTextPassword.isSingleLine = true
             editTextPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
@@ -133,7 +136,6 @@ class ProfileFragment : Fragment() {
                     val user = Firebase.auth.currentUser
 
                     if (user != null) {
-
                         val enteredPassword = editTextPassword.text.toString() // 사용자가 입력한 비밀번호 가져오기
 
                         if (enteredPassword.isNotEmpty()) {
@@ -144,8 +146,6 @@ class ProfileFragment : Fragment() {
                             user.reauthenticate(credential)
                                 .addOnCompleteListener { reauthTask ->
                                     if (reauthTask.isSuccessful) {
-                                        // 재인증 성공
-                                        // Firestore에서 사용자 데이터 삭제
                                         val db = FirebaseFirestore.getInstance()
                                         val userDocRef = db.collection("users").document(user.uid)
 
@@ -154,30 +154,21 @@ class ProfileFragment : Fragment() {
                                                 user.delete()
                                                     .addOnCompleteListener { deleteTask ->
                                                         if (deleteTask.isSuccessful) {
-                                                            // 계정 삭제 성공
                                                             sendToast("계정 탈퇴가 완료되었습니다.")
+                                                            val userDatabaseReference: DatabaseReference = Firebase.database.reference.child("users")
+                                                            userDatabaseReference.child(user.uid).removeValue()
                                                             Firebase.auth.signOut()
                                                             activity?.let {
-                                                                val intent = Intent(
-                                                                    it,
-                                                                    LoginActivity::class.java
-                                                                )
+                                                                val intent = Intent (it, LoginActivity::class.java)
                                                                 it.startActivity(intent)
                                                             }
                                                         } else {
-                                                            // 계정 삭제 실패
-                                                            val error =
-                                                                deleteTask.exception?.message
-                                                            sendToast("계정 탈퇴 중 오류가 발생했습니다. 오류 메시지: $error")
-                                                            Log.d("test", "$error")
+                                                            sendToast("계정 탈퇴 중 오류가 발생했습니다.")
                                                         }
                                                     }
                                             }
-                                            .addOnFailureListener { e ->
-                                                // Firestore에서 데이터 삭제 실패
-                                                val error = e.message
-                                                sendToast("Firestore에서 데이터 삭제 중 오류가 발생했습니다. 오류 메시지: $error")
-                                                Log.d("test", "$error")
+                                            .addOnFailureListener {
+                                                sendToast("데이터 삭제 중 오류가 발생했습니다.")
                                             }
                                     } else {
                                         val error = reauthTask.exception?.message
@@ -186,8 +177,6 @@ class ProfileFragment : Fragment() {
                                         } else if (error == "We have blocked all requests from this device due to unusual activity. Try again later. [ Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later. ]") {
                                             sendToast("잠시후에 다시 시도해 주세요.")
                                         }
-                                        //sendToast("재인증 중 오류가 발생했습니다. 오류 메시지: $error")
-                                        Log.d("test", "$error")
                                     }
                                 }
                         } else {
@@ -197,6 +186,13 @@ class ProfileFragment : Fragment() {
                         sendToast("로그인된 사용자가 없습니다.")
                     }
                 }
+            }
+        }
+
+        binding.btnFriendManage.setOnClickListener {
+            activity?.let {
+                val intent = Intent(it, FriendManageActivity::class.java)
+                startActivity(intent)
             }
         }
 
@@ -219,12 +215,6 @@ class ProfileFragment : Fragment() {
         hBinding = null
         super.onDestroyView()
     }
-
-//    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        val imm: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(view?.windowToken, 0)
-//        return true
-//    }
 
     companion object {
         @JvmStatic

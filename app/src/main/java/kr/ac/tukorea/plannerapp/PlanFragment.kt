@@ -11,6 +11,10 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kr.ac.tukorea.plannerapp.databinding.FragmentPlanBinding
 import java.text.DecimalFormat
 import java.time.LocalDate
@@ -47,16 +51,25 @@ class PlanFragment : Fragment() {
         var days = "${LocalDate.now().monthValue} 월 ${LocalDate.now().dayOfMonth} 일"
         var time: String = "09:00"
 
-        planViewModel = ViewModelProvider(this, ViewModelFactory())[PlanViewModel::class.java]
-        planViewModel.findPlansByDate(date)
+        val mDBReference = FirebaseDatabase.getInstance().reference
+        mDBReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                planViewModel = ViewModelProvider(this@PlanFragment, ViewModelFactory())[PlanViewModel::class.java]
+                planViewModel.findPlansByDate(date)
 
-        planViewModel.plans.observe(/*this*/viewLifecycleOwner) { plans ->
-            planlistadapter = PlanListAdapter(plans, /*this*/requireContext())
-            binding.rvPlanList.adapter = planlistadapter
-        }
-        val planLayoutManager = LinearLayoutManager(/*this*/requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvPlanList.setHasFixedSize(true)
-        binding.rvPlanList.layoutManager = planLayoutManager
+                planViewModel.plans.observe(viewLifecycleOwner) { plans ->
+                    planlistadapter = PlanListAdapter(plans, requireContext())
+                    binding.rvPlanList.adapter = planlistadapter
+                }
+
+                val planLayoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                binding.rvPlanList.setHasFixedSize(true)
+                binding.rvPlanList.layoutManager = planLayoutManager
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
 
         binding.calendarView.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
             date = "${year}-${dateFormat.format(month + 1)}-${dateFormat.format(dayOfMonth)}"
